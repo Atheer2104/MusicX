@@ -1,7 +1,7 @@
 # MusicX
 I was assaigned to create a project of what I want, so i came up with this idea an app where 
 you search for music lycrics (the lycrics are provided from genius) and then play the music on youtube if you want. 
-Because I want to learn SwiftUI so I decided that this project will be built on it.
+Because I want to learn SwiftUI, I decided that this project will be built with it.
 
 
 
