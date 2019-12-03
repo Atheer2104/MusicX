@@ -14,7 +14,11 @@ struct SearchView: View {
     // this variable is used to update the view
     // when user enters text into textfiled
     @State private var searchMusic: String = ""
+    @ObservedObject var networkManager = NetworkManager()
     
+    init() {
+        networkManager.fetchSongs()
+    }
     var body: some View {
         NavigationView {
             VStack {
@@ -23,7 +27,15 @@ struct SearchView: View {
                 }
                 exampleText(isSearching: isSearching)
                 
-                SongCardView(isSearching: isSearching)
+                
+                
+                
+                ForEach(networkManager.fetchedSongsResults, id: \.title) { song in
+               
+                        SongCardView(isSearching: self.isSearching, imageUrl: song.header_image_thumbnail_url, title: song.title, artist: "sia")
+                    
+                }
+                
                 
             }
             // makings sure navigation view takes the whole space
@@ -79,10 +91,6 @@ struct searchTextField: View {
             .shadow(radius: 5)
             .animation(.spring())
         
-        
-                
-        
-        
     }
 }
 // this view is used to explain to user on how to begin search
@@ -112,25 +120,26 @@ struct songTitle: ViewModifier {
         content
             .font(.title)
             .foregroundColor(.black)
+            .lineLimit(1)
     }
 }
 
 // the view for song card view
 struct SongCardView: View {
     var isSearching: Bool
-    
+    var imageUrl: String
+    var title: String
+    var artist: String
+   
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Image("test")
-                .resizable()
-                .cornerRadius(30)
-                .frame(width: UIScreen.main.bounds.width/1.5, height: UIScreen.main.bounds.width/1.5)
+            CustomImageView(withURL: imageUrl)
             HStack {
-                Text("Chandelier")
+                Text(title)
                     .modifier(songTitle())
                 Text("-")
                     .modifier(songTitle())
-                Text("Sia")
+                Text(artist)
                     .modifier(songTitle())
                 
             }
@@ -141,5 +150,25 @@ struct SongCardView: View {
         // this is a simple fix
         .opacity(isSearching ? 1 : 0)
         .animation(.spring())
+    }
+}
+
+func imageFromData(_ data:Data) -> UIImage {
+    UIImage(data: data) ?? UIImage()
+}
+
+struct CustomImageView: View {
+    @ObservedObject var imageLoader:ImageLoader
+    init(withURL url:String) {
+        imageLoader = ImageLoader(urlString:url)
+    }
+    
+    var body: some View {
+        // checking for our fetched is not nil if nil then we just use an empty UIImage
+        // if we have fetched our image then we set as our image 
+        Image(uiImage: imageLoader.dataIsValid ? imageFromData(imageLoader.fetchedImage!) : UIImage())
+           .resizable()
+           .cornerRadius(30)
+           .frame(width: UIScreen.main.bounds.width/1.5, height: UIScreen.main.bounds.width/1.5)
     }
 }
