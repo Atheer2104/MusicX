@@ -17,13 +17,9 @@ class NetworkManager: ObservableObject {
             objectWillChange.send(self)
         }
     }
-    
-    init() {
-        fetchSongs()
-    }
-    
-    func fetchSongs() {
-        guard let url = URL(string: "https://api.genius.com/search?q=Sia") else { return }
+        
+    func fetchSongs(userSearched callback: String) {
+        guard let url = URL(string: "https://api.genius.com/search?q=\(callback)") else { return }
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("Bearer VCc_Cb7o8D_BWda25HM7D1vD7wNtot_HPonFSAZFisqOI2pgop_1drL9AumJQ6GJ", forHTTPHeaderField: "Authorization")
 

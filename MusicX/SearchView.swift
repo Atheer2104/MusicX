@@ -17,26 +17,34 @@ struct SearchView: View {
     @ObservedObject var networkManager = NetworkManager()
     
     init() {
-        networkManager.fetchSongs()
+        networkManager.fetchSongs(userSearched: "Adele")
     }
+    
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    searchTextField(isSearching: isSearching, searchMusic: $searchMusic)
-                }
+                searchTextField(isSearching: isSearching, searchMusic: $searchMusic)
+                
                 exampleText(isSearching: isSearching)
-                
-                
-                
-                
-                ForEach(networkManager.fetchedSongsResults, id: \.title) { song in
-               
-                        SongCardView(isSearching: self.isSearching, imageUrl: song.header_image_thumbnail_url, title: song.title, artist: "sia")
-                    
+            
+            GeometryReader { geometry in
+                ScrollView {
+                    // needed this so we can initalize our scroll otherwise nothing will fucking show up
+                    Rectangle()
+                        .frame(width: geometry.size.width, height: 0.01)
+                    ForEach(self.networkManager.fetchedSongsResults, id: \.title) { song in
+                        VStack {
+                            SongCardView(isSearching: self.isSearching, imageUrl: song.header_image_thumbnail_url, title: song.title, artist: song.primary_artist.name)
+                        }
+                    }
                 }
+                .opacity(self.isSearching ? 1 : 0)
+                .offset(y: self.isSearching ? -55 : UIScreen.main.bounds.height)
+                .animation(.default)
                 
-                
+            }
+        
+             
             }
             // makings sure navigation view takes the whole space
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: Alignment.top)
@@ -114,13 +122,14 @@ struct exampleText: View {
     }
 }
 
-// this is a custom modifier for the song title
-struct songTitle: ViewModifier {
+// this is a custom modifier for the songcardview text modifier
+struct SongCardViewText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.title)
             .foregroundColor(.black)
             .lineLimit(1)
+            
     }
 }
 
@@ -136,20 +145,18 @@ struct SongCardView: View {
             CustomImageView(withURL: imageUrl)
             HStack {
                 Text(title)
-                    .modifier(songTitle())
+                    .modifier(SongCardViewText())
                 Text("-")
-                    .modifier(songTitle())
+                    .modifier(SongCardViewText())
                 Text(artist)
-                    .modifier(songTitle())
+                    .modifier(SongCardViewText())
                 
             }
+            .frame(minWidth: 0, maxWidth: 240, minHeight: 0, maxHeight: 30)
             .background(Color.gray.opacity(0.8))
             .padding()
+            
         }
-        // Will add proper animation for teh card view
-        // this is a simple fix
-        .opacity(isSearching ? 1 : 0)
-        .animation(.spring())
     }
 }
 
