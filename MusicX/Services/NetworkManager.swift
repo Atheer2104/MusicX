@@ -17,7 +17,7 @@ class NetworkManager: ObservableObject {
             objectWillChange.send(self)
         }
     }
-        
+    
     func fetchSongs(userSearched callback: String) {
         guard let url = URL(string: "https://api.genius.com/search?q=\(callback)") else { return }
         var urlRequest = URLRequest(url: url)

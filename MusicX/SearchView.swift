@@ -16,15 +16,11 @@ struct SearchView: View {
     @State private var searchMusic: String = ""
     @ObservedObject var networkManager = NetworkManager()
     
-    init() {
-        networkManager.fetchSongs(userSearched: "Adele")
-    }
-    
     var body: some View {
         NavigationView {
             VStack {
-                searchTextField(isSearching: isSearching, searchMusic: $searchMusic)
-                
+                searchTextField(isSearching: isSearching, searchMusic: $searchMusic, networkManager: networkManager)
+               
                 exampleText(isSearching: isSearching)
             
             GeometryReader { geometry in
@@ -43,8 +39,6 @@ struct SearchView: View {
                 .animation(.default)
                 
             }
-        
-             
             }
             // makings sure navigation view takes the whole space
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: Alignment.top)
@@ -57,7 +51,7 @@ struct SearchView: View {
                     // when search button is tapped
                     self.isSearching.toggle()
                 }) {
-                    searchButton()
+                    CustomButton(nameOfImage: "magnifyingglass")
             })
         // added background color for whole view
         .background(Color(UIColor.systemGray5).edgesIgnoringSafeArea(.all))
@@ -72,28 +66,27 @@ struct SearchView_Previews: PreviewProvider {
     }
 }
 
-struct searchButton: View {
-    var body: some View {
-        // creating search button
-        Image(systemName: "magnifyingglass")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .padding(10)
-            .frame(width: 44, height: 44)
-    }
-}
-
 struct searchTextField: View {
     var isSearching: Bool
     @Binding var searchMusic: String
+    @ObservedObject var networkManager:NetworkManager
     var body: some View {
         // creating text field and when user commits the text
         // gets to reset
-        TextField("Search", text: $searchMusic , onCommit: {
-            self.searchMusic = ""
-        })
-            .padding(.horizontal, 13)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+        HStack {
+            TextField("Search", text: $searchMusic , onCommit: {
+                self.networkManager.fetchSongs(userSearched: self.searchMusic)
+            })
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Button(action: {
+                // when clear button is tapped
+                self.networkManager.fetchedSongsResults.removeAll()
+                self.searchMusic = ""
+                }) {
+                    CustomButton(nameOfImage: "xmark.circle")
+            }
+        }
+            .padding(.horizontal, 6)
             .opacity(isSearching ? 1 : 0)
             .offset(x: isSearching ? 0 : -UIScreen.main.bounds.width )
             .shadow(radius: 5)
@@ -122,17 +115,6 @@ struct exampleText: View {
     }
 }
 
-// this is a custom modifier for the songcardview text modifier
-struct SongCardViewText: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.title)
-            .foregroundColor(.black)
-            .lineLimit(1)
-            
-    }
-}
-
 // the view for song card view
 struct SongCardView: View {
     var isSearching: Bool
@@ -145,37 +127,16 @@ struct SongCardView: View {
             CustomImageView(withURL: imageUrl)
             HStack {
                 Text(title)
-                    .modifier(SongCardViewText())
+                    .modifier(SongCardViewTextModifier())
                 Text("-")
-                    .modifier(SongCardViewText())
+                    .modifier(SongCardViewTextModifier())
                 Text(artist)
-                    .modifier(SongCardViewText())
+                    .modifier(SongCardViewTextModifier())
                 
             }
             .frame(minWidth: 0, maxWidth: 240, minHeight: 0, maxHeight: 30)
             .background(Color.gray.opacity(0.8))
             .padding()
-            
         }
-    }
-}
-
-func imageFromData(_ data:Data) -> UIImage {
-    UIImage(data: data) ?? UIImage()
-}
-
-struct CustomImageView: View {
-    @ObservedObject var imageLoader:ImageLoader
-    init(withURL url:String) {
-        imageLoader = ImageLoader(urlString:url)
-    }
-    
-    var body: some View {
-        // checking for our fetched is not nil if nil then we just use an empty UIImage
-        // if we have fetched our image then we set as our image 
-        Image(uiImage: imageLoader.dataIsValid ? imageFromData(imageLoader.fetchedImage!) : UIImage())
-           .resizable()
-           .cornerRadius(30)
-           .frame(width: UIScreen.main.bounds.width/1.5, height: UIScreen.main.bounds.width/1.5)
     }
 }
