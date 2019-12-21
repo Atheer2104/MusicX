@@ -29,11 +29,21 @@ struct hits: Codable {
 
 struct song: Codable, Identifiable {
    var id: Int
-   var header_image_thumbnail_url: String
-   var url: String
+   var imageUrl: String
+   var lyricsUrl: String
    var title: String
    var lyrics_state: String
    var primary_artist: artist
+    
+    private enum CodingKeys: String, CodingKey{
+    case id
+    case imageUrl = "header_image_thumbnail_url"
+    case lyricsUrl = "url"
+    case title
+    case lyrics_state
+    case primary_artist
+    }
+    
    
 }
 

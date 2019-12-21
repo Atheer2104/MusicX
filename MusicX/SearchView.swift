@@ -30,7 +30,11 @@ struct SearchView: View {
                         .frame(width: geometry.size.width, height: 0.01)
                     ForEach(self.networkManager.fetchedSongsResults, id: \.title) { song in
                         VStack {
-                            SongCardView(isSearching: self.isSearching, imageUrl: song.header_image_thumbnail_url, title: song.title, artist: song.primary_artist.name)
+                            NavigationLink(destination: LyricView(url: song.lyricsUrl)) {
+                                SongCardView(isSearching: self.isSearching, imageUrl: song.imageUrl, title: song.title, artist: song.primary_artist.name)
+                            }
+                     
+                            
                         }
                     }
                 }
@@ -53,7 +57,7 @@ struct SearchView: View {
                 }) {
                     CustomButton(nameOfImage: "magnifyingglass")
             })
-        // added background color for whole view
+                // added background color for whole view
         .background(Color(UIColor.systemGray5).edgesIgnoringSafeArea(.all))
             
         }

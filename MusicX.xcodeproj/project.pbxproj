@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF1A8C0523AE4D700012CD08 /* LyricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1A8C0423AE4D700012CD08 /* LyricView.swift */; };
+		FF1A8C0723AE57A20012CD08 /* LyricsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1A8C0623AE57A20012CD08 /* LyricsFetcher.swift */; };
+		FF1A8C0A23AE5A2D0012CD08 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = FF1A8C0923AE5A2D0012CD08 /* SwiftSoup */; };
 		FF1D4C73239A298F00C42D14 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1D4C72239A298F00C42D14 /* CustomImageView.swift */; };
 		FF1D4C75239A2A1700C42D14 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1D4C74239A2A1700C42D14 /* CustomButton.swift */; };
 		FF1D4C7A239A2AEF00C42D14 /* SongCardViewTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1D4C79239A2AEF00C42D14 /* SongCardViewTextModifier.swift */; };
@@ -24,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF1A8C0423AE4D700012CD08 /* LyricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricView.swift; sourceTree = "<group>"; };
+		FF1A8C0623AE57A20012CD08 /* LyricsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsFetcher.swift; sourceTree = "<group>"; };
 		FF1D4C72239A298F00C42D14 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		FF1D4C74239A2A1700C42D14 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		FF1D4C79239A2AEF00C42D14 /* SongCardViewTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCardViewTextModifier.swift; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF1A8C0A23AE5A2D0012CD08 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +99,7 @@
 				FF9A7C8F236B50450078BEE6 /* SceneDelegate.swift */,
 				FF9A7C94236B50450078BEE6 /* ContentView.swift */,
 				FF9A7CA4236B56CC0078BEE6 /* SearchView.swift */,
+				FF1A8C0423AE4D700012CD08 /* LyricView.swift */,
 				FF1D4C71239A297900C42D14 /* CustomViews */,
 				FF1D4C78239A2AAE00C42D14 /* Modifiers */,
 				FFB3D20B237C9C1600BCC9C8 /* models */,
@@ -128,6 +135,7 @@
 			children = (
 				FFB3D20E237C9F7900BCC9C8 /* NetworkManager.swift */,
 				FF35B2AA2396DB7000409149 /* ImageLoader.swift */,
+				FF1A8C0623AE57A20012CD08 /* LyricsFetcher.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -148,6 +156,9 @@
 			dependencies = (
 			);
 			name = MusicX;
+			packageProductDependencies = (
+				FF1A8C0923AE5A2D0012CD08 /* SwiftSoup */,
+			);
 			productName = MusicX;
 			productReference = FF9A7C8A236B50450078BEE6 /* MusicX.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +187,9 @@
 				Base,
 			);
 			mainGroup = FF9A7C81236B50450078BEE6;
+			packageReferences = (
+				FF1A8C0823AE5A2C0012CD08 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = FF9A7C8B236B50450078BEE6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -204,9 +218,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF9A7CA5236B56CC0078BEE6 /* SearchView.swift in Sources */,
+				FF1A8C0723AE57A20012CD08 /* LyricsFetcher.swift in Sources */,
 				FF1D4C73239A298F00C42D14 /* CustomImageView.swift in Sources */,
 				FF9A7C8E236B50450078BEE6 /* AppDelegate.swift in Sources */,
 				FF9A7C90236B50450078BEE6 /* SceneDelegate.swift in Sources */,
+				FF1A8C0523AE4D700012CD08 /* LyricView.swift in Sources */,
 				FF1D4C75239A2A1700C42D14 /* CustomButton.swift in Sources */,
 				FFB3D20F237C9F7900BCC9C8 /* NetworkManager.swift in Sources */,
 				FFB3D20D237C9C7500BCC9C8 /* GeniusAPIModel.swift in Sources */,
@@ -354,6 +370,7 @@
 				DEVELOPMENT_TEAM = 2R9D8RVTAY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MusicX/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -374,6 +391,7 @@
 				DEVELOPMENT_TEAM = 2R9D8RVTAY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MusicX/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -407,6 +425,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FF1A8C0823AE5A2C0012CD08 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FF1A8C0923AE5A2D0012CD08 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF1A8C0823AE5A2C0012CD08 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		FF9A7C91236B50450078BEE6 /* MusicX.xcdatamodeld */ = {
