@@ -13,5 +13,7 @@ Because I want to learn SwiftUI, I decided that this project will be built with 
  * be able to play that song via youtube 
  * supports darkmode 
  * use core data to save a favorites songs and use spotify api to get popular music 
+ 
+ <h4> Here is the current design of the app <a href="https://app.moqups.com/bou3VM1FEo/view">click here</a></h4>
 
 
