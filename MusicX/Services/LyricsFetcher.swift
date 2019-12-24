@@ -11,14 +11,8 @@ import Combine
 import SwiftSoup
 
 class LyricsFetcher: ObservableObject {
-    var objectWillChange = PassthroughSubject<LyricsFetcher, Never>()
     @Published var isDataReady = false
-    
-    var fetchedLyricsArray = [String.SubSequence]() {
-        willSet {
-            objectWillChange.send(self)
-        }
-    }
+    @Published var fetchedLyricsArray = [String.SubSequence]()
     
     func fetchSongLyric(url: String) {
         guard let url = URL(string: url) else { return }

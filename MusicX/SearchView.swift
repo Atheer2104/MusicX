@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct SearchView: View {
     // a state for when search button is tapped
@@ -15,7 +16,9 @@ struct SearchView: View {
     // when user enters text into textfiled
     @State private var searchMusic: String = ""
     @ObservedObject var networkManager = NetworkManager()
-    
+    @State var Push: Bool = false
+    @State var url: String = ""
+        
     var body: some View {
         NavigationView {
             VStack {
@@ -23,26 +26,28 @@ struct SearchView: View {
                
                 exampleText(isSearching: isSearching)
             
+                if self.networkManager.isDataReady {
             GeometryReader { geometry in
                 ScrollView {
                     // needed this so we can initalize our scroll otherwise nothing will fucking show up
                     Rectangle()
                         .frame(width: geometry.size.width, height: 0.01)
-                    ForEach(self.networkManager.fetchedSongsResults, id: \.title) { song in
-                        VStack {
-                            NavigationLink(destination: LyricView(url: song.lyricsUrl)) {
-                                SongCardView(isSearching: self.isSearching, imageUrl: song.imageUrl, title: song.title, artist: song.primary_artist.name)
+                    
+                        ForEach(self.networkManager.fetchedSongsResults, id: \.title) { song in
+                            VStack {
+                                SongCardView(push: self.$Push, lyric: self.$url, isSearching: self.isSearching, imageUrl:song.imageUrl, title: song.title ,artist:song.primary_artist.name, LyricUrl: song.lyricsUrl)
                             }
-                     
-                            
                         }
-                    }
                 }
                 .opacity(self.isSearching ? 1 : 0)
                 .offset(y: self.isSearching ? -55 : UIScreen.main.bounds.height)
                 .animation(.default)
                 
             }
+                }
+                NavigationLink(destination: LyricView(pushed: $Push, url: $url), isActive: $Push) {
+                    EmptyView()
+                }
             }
             // makings sure navigation view takes the whole space
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: Alignment.top)
@@ -59,7 +64,6 @@ struct SearchView: View {
             })
                 // added background color for whole view
         .background(Color(UIColor.systemGray5).edgesIgnoringSafeArea(.all))
-            
         }
     }
 }
@@ -121,14 +125,21 @@ struct exampleText: View {
 
 // the view for song card view
 struct SongCardView: View {
+    @Binding var push: Bool
+    @Binding var lyric: String
     var isSearching: Bool
     var imageUrl: String
     var title: String
     var artist: String
+    var LyricUrl: String
    
     var body: some View {
+        
         ZStack(alignment: .topLeading) {
-            CustomImageView(withURL: imageUrl)
+            Button(action: {
+                self.lyric = self.LyricUrl
+                self.push = true
+            }) { CustomImageView(withURL: imageUrl) }
             HStack {
                 Text(title)
                     .modifier(SongCardViewTextModifier())

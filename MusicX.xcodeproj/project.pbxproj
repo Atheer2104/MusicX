@@ -22,6 +22,7 @@
 		FF9A7C9A236B504B0078BEE6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF9A7C99236B504B0078BEE6 /* Preview Assets.xcassets */; };
 		FF9A7C9D236B504B0078BEE6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF9A7C9B236B504B0078BEE6 /* LaunchScreen.storyboard */; };
 		FF9A7CA5236B56CC0078BEE6 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9A7CA4236B56CC0078BEE6 /* SearchView.swift */; };
+		FFB0A3FB23B2A44E001CE575 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0A3FA23B2A44E001CE575 /* Switch.swift */; };
 		FFB3D20D237C9C7500BCC9C8 /* GeniusAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB3D20C237C9C7500BCC9C8 /* GeniusAPIModel.swift */; };
 		FFB3D20F237C9F7900BCC9C8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB3D20E237C9F7900BCC9C8 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		FF9A7C9C236B504B0078BEE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF9A7C9E236B504B0078BEE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF9A7CA4236B56CC0078BEE6 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		FFB0A3FA23B2A44E001CE575 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		FFB3D20C237C9C7500BCC9C8 /* GeniusAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeniusAPIModel.swift; sourceTree = "<group>"; };
 		FFB3D20E237C9F7900BCC9C8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +138,7 @@
 				FFB3D20E237C9F7900BCC9C8 /* NetworkManager.swift */,
 				FF35B2AA2396DB7000409149 /* ImageLoader.swift */,
 				FF1A8C0623AE57A20012CD08 /* LyricsFetcher.swift */,
+				FFB0A3FA23B2A44E001CE575 /* Switch.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				FF9A7C90236B50450078BEE6 /* SceneDelegate.swift in Sources */,
 				FF1A8C0523AE4D700012CD08 /* LyricView.swift in Sources */,
 				FF1D4C75239A2A1700C42D14 /* CustomButton.swift in Sources */,
+				FFB0A3FB23B2A44E001CE575 /* Switch.swift in Sources */,
 				FFB3D20F237C9F7900BCC9C8 /* NetworkManager.swift in Sources */,
 				FFB3D20D237C9C7500BCC9C8 /* GeniusAPIModel.swift in Sources */,
 				FF9A7C95236B50450078BEE6 /* ContentView.swift in Sources */,

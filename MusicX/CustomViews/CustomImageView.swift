@@ -22,7 +22,7 @@ struct CustomImageView: View {
         // checking for our fetched is not nil if nil then we just use an empty UIImage
         // if we have fetched our image then we set as our image
         Image(uiImage: imageLoader.dataIsValid ? imageFromData(imageLoader.fetchedImage!) : UIImage())
-           .renderingMode(.original) 
+           .renderingMode(.original)
            .resizable()
            .cornerRadius(30)
            .frame(width: UIScreen.main.bounds.width/1.5, height: UIScreen.main.bounds.width/1.5)
