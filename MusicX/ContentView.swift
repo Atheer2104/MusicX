@@ -9,10 +9,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello World")
+    @ObservedObject var idFetcher = YoutubeVideoIDFetcher()
+    
+    init() {
+        self.idFetcher.fetchVideoID(GeniusLyricUrl: "https://genius.com/Sia-chandelier-lyrics")
     }
+    
+    var body: some View {
+        Text(self.idFetcher.videoId)
+    }   
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

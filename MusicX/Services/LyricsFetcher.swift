@@ -29,8 +29,8 @@ class LyricsFetcher: ObservableObject {
              }
             
             DispatchQueue.main.async {
-                self.isDataReady = true
                 self.fetchedLyricsArray = self.fetchLyrics(TheHtml: htmlString)
+                self.isDataReady = true
             }
             
         }.resume()

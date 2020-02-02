@@ -10,10 +10,10 @@ import SwiftUI
 
 struct LyricView: View {
     
-    @ObservedObject var lyricsFetcher: LyricsFetcher
+    @ObservedObject var lyricsFetcher = LyricsFetcher()
+    @ObservedObject var idFetcher = YoutubeVideoIDFetcher()
     @Binding var Push: Bool
     @Binding var songLyricUrl: String
-    
     
     init(pushed: Binding<Bool>, url: Binding<String>) {
         //default url for song lyric
@@ -21,30 +21,50 @@ struct LyricView: View {
         self._Push = pushed
         self._songLyricUrl = url
         
-        self.lyricsFetcher = LyricsFetcher()
         self.lyricsFetcher.fetchSongLyric(url: songLyricUrl)
-        
+        self.idFetcher.fetchVideoID(GeniusLyricUrl: songLyricUrl)
     }
 
     var body: some View {
             VStack {
             if self.lyricsFetcher.isDataReady {
-                VStack {
                     ScrollView {
                         ForEach(0..<self.lyricsFetcher.fetchedLyricsArray.count) { index in
                            
                             LyricText(part: self.lyricsFetcher.fetchedLyricsArray[index])
                         }
-                    }
+                }
+            } else {
+                VStack {
+                    Text("Please wait while lyrics are fetching")
+                        .font(.headline)
+                        .fontWeight(.heavy)
+                }
+            
                 }
             }
-            }
             .navigationBarTitle(Text("MusicX"), displayMode: .inline)
-.background(Color(UIColor.systemGray5).edgesIgnoringSafeArea(.all))
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .padding()
+            .background(Color(UIColor.systemGray5).edgesIgnoringSafeArea(.all))
         .navigationBarBackButtonHidden(true)
        .navigationBarItems(leading: BackButton(label: "Back") {
             self.Push = false
-        })
+        }, trailing: HStack {
+            // favorites button
+            Button(action: {
+                print("added to favorites")
+               }) {
+                   CustomButton(nameOfImage: "suit.heart")
+            }
+            
+            // play button
+            Button(action: {
+                UIApplication.shared.open(URL(string: "https://www.youtube.com/watch?v=\(self.idFetcher.videoId)")!, options: [:], completionHandler: nil)
+               }) {
+                   CustomButton(nameOfImage: "play.rectangle.fill")
+            }
+       })
         
     }
 }
@@ -54,6 +74,8 @@ struct LyricView: View {
         LyricView()
     }
 }*/
+
+
 
 struct LyricText: View {
     let part: String.SubSequence
