@@ -18,6 +18,7 @@ struct SearchView: View {
     @ObservedObject var networkManager = NetworkManager()
     @State var Push: Bool = false
     @State var url: String = ""
+    @State var artistAndTitle: String = ""
         
     var body: some View {
         NavigationView {
@@ -35,7 +36,7 @@ struct SearchView: View {
                     
                         ForEach(self.networkManager.fetchedSongsResults, id: \.title) { song in
                             VStack {
-                                SongCardView(push: self.$Push, lyric: self.$url, isSearching: self.isSearching, imageUrl:song.imageUrl, title: song.title ,artist:song.primary_artist.name, LyricUrl: song.lyricsUrl)
+                                SongCardView(push: self.$Push, lyric: self.$url, artistAndTitle: self.$artistAndTitle, isSearching: self.isSearching, imageUrl:song.imageUrl, title: song.title ,artist:song.primary_artist.name, LyricUrl: song.lyricsUrl)
                             }
                         }
                 }
@@ -45,7 +46,7 @@ struct SearchView: View {
                 
             }
                 }
-                NavigationLink(destination: LyricView(pushed: $Push, url: $url), isActive: $Push) {
+                NavigationLink(destination: LyricView(pushed: $Push, url: $url, artistNTitle: $artistAndTitle), isActive: $Push) {
                     EmptyView()
                 }
             }
@@ -127,6 +128,7 @@ struct exampleText: View {
 struct SongCardView: View {
     @Binding var push: Bool
     @Binding var lyric: String
+    @Binding var artistAndTitle: String
     var isSearching: Bool
     var imageUrl: String
     var title: String
@@ -138,6 +140,7 @@ struct SongCardView: View {
         ZStack(alignment: .topLeading) {
             Button(action: {
                 self.lyric = self.LyricUrl
+                self.artistAndTitle = "\(self.artist)-\(self.title)"
                 self.push = true
             }) { CustomImageView(withURL: imageUrl) }
             HStack {

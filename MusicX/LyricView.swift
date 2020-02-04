@@ -7,22 +7,30 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct LyricView: View {
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(fetchRequest: SavedSong.getAllSavedSongs()) var savedSongs: FetchedResults<SavedSong>
+    
+    @State private var newSavedSong = ""
     
     @ObservedObject var lyricsFetcher = LyricsFetcher()
     @ObservedObject var idFetcher = YoutubeVideoIDFetcher()
     @Binding var Push: Bool
     @Binding var songLyricUrl: String
+    @Binding var artistAndTitle: String
     
-    init(pushed: Binding<Bool>, url: Binding<String>) {
+    init(pushed: Binding<Bool>, url: Binding<String>, artistNTitle: Binding<String>) {
         //default url for song lyric
         //songLyricUrl = url
         self._Push = pushed
         self._songLyricUrl = url
+        self._artistAndTitle = artistNTitle
         
         self.lyricsFetcher.fetchSongLyric(url: songLyricUrl)
-        self.idFetcher.fetchVideoID(GeniusLyricUrl: songLyricUrl)
+        self.idFetcher.fetchVideoID(artistAndTitle: artistAndTitle)
     }
 
     var body: some View {
@@ -33,7 +41,11 @@ struct LyricView: View {
                            
                             LyricText(part: self.lyricsFetcher.fetchedLyricsArray[index])
                         }
+                        ForEach(self.savedSongs) { savedSong in
+                            savedSongCard(title: savedSong.title!, artist: savedSong.artist!)
+                        }
                 }
+                
             } else {
                 VStack {
                     Text("Please wait while lyrics are fetching")
@@ -53,6 +65,22 @@ struct LyricView: View {
         }, trailing: HStack {
             // favorites button
             Button(action: {
+                let savedSong = SavedSong(context: self.managedObjectContext)
+                
+                guard let range = self.artistAndTitle.range(of: "-") else { return }
+                
+                savedSong.title = String(self.artistAndTitle[range.upperBound...])
+                savedSong.artist = String(self.artistAndTitle[self.artistAndTitle.startIndex..<range.lowerBound])
+                savedSong.songLyricsUrl = "\(self.songLyricUrl)"
+                
+                
+                do {
+                    try self.managedObjectContext.save()
+                } catch {
+                    print(error)
+                }
+                
+                self.newSavedSong = ""
                 print("added to favorites")
                }) {
                    CustomButton(nameOfImage: "suit.heart")
@@ -64,6 +92,19 @@ struct LyricView: View {
                }) {
                    CustomButton(nameOfImage: "play.rectangle.fill")
             }
+            
+            // only for testing remove later
+           Button(action: {
+            self.managedObjectContext.delete(self.savedSongs.first!)
+        
+                do {
+                    try self.managedObjectContext.save()
+                } catch {
+                    print(error)
+                }
+              }) {
+                  CustomButton(nameOfImage: "trash")
+           }
        })
         
     }

@@ -12,7 +12,7 @@ struct ContentView: View {
     @ObservedObject var idFetcher = YoutubeVideoIDFetcher()
     
     init() {
-        self.idFetcher.fetchVideoID(GeniusLyricUrl: "https://genius.com/Sia-chandelier-lyrics")
+        self.idFetcher.fetchVideoID(artistAndTitle: "Sia-chandelier")
     }
     
     var body: some View {
