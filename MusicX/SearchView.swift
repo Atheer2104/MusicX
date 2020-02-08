@@ -33,7 +33,6 @@ struct SearchView: View {
                     // needed this so we can initalize our scroll otherwise nothing will fucking show up
                     Rectangle()
                         .frame(width: geometry.size.width, height: 0.01)
-                    
                         ForEach(self.networkManager.fetchedSongsResults, id: \.title) { song in
                             VStack {
                                 SongCardView(push: self.$Push, lyric: self.$url, artistAndTitle: self.$artistAndTitle, isSearching: self.isSearching, imageUrl:song.imageUrl, title: song.title ,artist:song.primary_artist.name, LyricUrl: song.lyricsUrl)
@@ -43,7 +42,6 @@ struct SearchView: View {
                 .opacity(self.isSearching ? 1 : 0)
                 .offset(y: self.isSearching ? -55 : UIScreen.main.bounds.height)
                 .animation(.default)
-                
             }
                 }
                 NavigationLink(destination: LyricView(pushed: $Push, url: $url, artistNTitle: $artistAndTitle), isActive: $Push) {

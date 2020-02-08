@@ -28,11 +28,11 @@ class YoutubeVideoIDFetcher: ObservableObject {
         URLSession.shared.dataTask(with: urlString) {data, response, error in
             guard let data = data else { return }
             
-            let feed = try! JSONDecoder().decode(topLevel.self, from: data)
+            let feed = try? JSONDecoder().decode(topLevel.self, from: data)
             
             
             DispatchQueue.main.async {
-                 guard let id = feed.items.first?.id.videoId else { return }
+                 guard let id = feed?.items.first?.id.videoId else { return }
                  self.videoId = id
             }
         }.resume()

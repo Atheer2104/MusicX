@@ -40,10 +40,7 @@ struct LyricView: View {
                         ForEach(0..<self.lyricsFetcher.fetchedLyricsArray.count) { index in
                            
                             LyricText(part: self.lyricsFetcher.fetchedLyricsArray[index])
-                        }
-                        ForEach(self.savedSongs) { savedSong in
-                            savedSongCard(title: savedSong.title!, artist: savedSong.artist!)
-                        }
+                        }.padding(.top, 30)
                 }
                 
             } else {
@@ -92,30 +89,11 @@ struct LyricView: View {
                }) {
                    CustomButton(nameOfImage: "play.rectangle.fill")
             }
-            
-            // only for testing remove later
-           Button(action: {
-            self.managedObjectContext.delete(self.savedSongs.first!)
-        
-                do {
-                    try self.managedObjectContext.save()
-                } catch {
-                    print(error)
-                }
-              }) {
-                  CustomButton(nameOfImage: "trash")
-           }
+
        })
         
     }
 }
-
-/*struct LyricView_Previews: PreviewProvider {
-    static var previews: some View {
-        LyricView()
-    }
-}*/
-
 
 
 struct LyricText: View {
