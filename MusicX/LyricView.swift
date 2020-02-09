@@ -12,9 +12,6 @@ import CoreData
 struct LyricView: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(fetchRequest: SavedSong.getAllSavedSongs()) var savedSongs: FetchedResults<SavedSong>
-    
-    @State private var newSavedSong = ""
     
     @ObservedObject var lyricsFetcher = LyricsFetcher()
     @ObservedObject var idFetcher = YoutubeVideoIDFetcher()
@@ -77,7 +74,6 @@ struct LyricView: View {
                     print(error)
                 }
                 
-                self.newSavedSong = ""
                 print("added to favorites")
                }) {
                    CustomButton(nameOfImage: "suit.heart")
@@ -85,6 +81,7 @@ struct LyricView: View {
             
             // play button
             Button(action: {
+                
                 UIApplication.shared.open(URL(string: "https://www.youtube.com/watch?v=\(self.idFetcher.videoId)")!, options: [:], completionHandler: nil)
                }) {
                    CustomButton(nameOfImage: "play.rectangle.fill")

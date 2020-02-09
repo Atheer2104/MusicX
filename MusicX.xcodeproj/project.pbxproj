@@ -19,7 +19,6 @@
 		FF9A7C8E236B50450078BEE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9A7C8D236B50450078BEE6 /* AppDelegate.swift */; };
 		FF9A7C90236B50450078BEE6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9A7C8F236B50450078BEE6 /* SceneDelegate.swift */; };
 		FF9A7C93236B50450078BEE6 /* MusicX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF9A7C91236B50450078BEE6 /* MusicX.xcdatamodeld */; };
-		FF9A7C95236B50450078BEE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9A7C94236B50450078BEE6 /* ContentView.swift */; };
 		FF9A7C97236B504B0078BEE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF9A7C96236B504B0078BEE6 /* Assets.xcassets */; };
 		FF9A7C9A236B504B0078BEE6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF9A7C99236B504B0078BEE6 /* Preview Assets.xcassets */; };
 		FF9A7C9D236B504B0078BEE6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF9A7C9B236B504B0078BEE6 /* LaunchScreen.storyboard */; };
@@ -47,7 +46,6 @@
 		FF9A7C8D236B50450078BEE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF9A7C8F236B50450078BEE6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FF9A7C92236B50450078BEE6 /* MusicX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MusicX.xcdatamodel; sourceTree = "<group>"; };
-		FF9A7C94236B50450078BEE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FF9A7C96236B504B0078BEE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF9A7C99236B504B0078BEE6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF9A7C9C236B504B0078BEE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 			children = (
 				FF9A7C8D236B50450078BEE6 /* AppDelegate.swift */,
 				FF9A7C8F236B50450078BEE6 /* SceneDelegate.swift */,
-				FF9A7C94236B50450078BEE6 /* ContentView.swift */,
 				FF9A7CA4236B56CC0078BEE6 /* SearchView.swift */,
 				FF1A8C0423AE4D700012CD08 /* LyricView.swift */,
 				FFE34EDE23E7339A007DB519 /* savedSongCard.swift */,
@@ -254,7 +251,6 @@
 				FFFE29E723E06B8C00363A8A /* YoutubeVideoIDFetcher.swift in Sources */,
 				FFB3D20F237C9F7900BCC9C8 /* NetworkManager.swift in Sources */,
 				FFB3D20D237C9C7500BCC9C8 /* GeniusAPIModel.swift in Sources */,
-				FF9A7C95236B50450078BEE6 /* ContentView.swift in Sources */,
 				FF35B2AB2396DB7000409149 /* ImageLoader.swift in Sources */,
 				FF2BC81E23C2726A00C7E97F /* songPlayer.swift in Sources */,
 				FF9A7C93236B50450078BEE6 /* MusicX.xcdatamodeld in Sources */,

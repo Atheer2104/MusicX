@@ -20,20 +20,19 @@ class YoutubeVideoIDFetcher: ObservableObject {
     
     func fetchVideoID(artistAndTitle call:String) {
         
-        let callback = call.replacingOccurrences(of: "-", with: " ")
+        let callback = call.replacingOccurrences(of: "-", with: "%20").replacingOccurrences(of: " ", with: "%20")
         
-        guard let urlString = URL(string: "https://www.googleapis.com/youtube/v3/search?part=id&maxResults=1&order=viewCount&q=\(callback)&type=video&key=AIzaSyCfkayKvOTdGBP9EN0bdgalRSKt2VNOJgM") else { return }
-            
+        guard let urlString = URL(string: "https://www.googleapis.com/youtube/v3/search?part=id&q=\(callback)&key=") else { return }
             
         URLSession.shared.dataTask(with: urlString) {data, response, error in
             guard let data = data else { return }
             
-            let feed = try? JSONDecoder().decode(topLevel.self, from: data)
-            
+            let feed = try! JSONDecoder().decode(topLevel.self, from: data)
             
             DispatchQueue.main.async {
-                 guard let id = feed?.items.first?.id.videoId else { return }
+                 guard let id = feed.items.first?.id.videoId else { return }
                  self.videoId = id
+                
             }
         }.resume()
         
